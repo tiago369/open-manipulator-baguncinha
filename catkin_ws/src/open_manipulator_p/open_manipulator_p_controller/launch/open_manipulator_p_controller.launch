@@ -1,5 +1,5 @@
 ﻿<launch>
-  <arg name="use_robot_name"         default="open_manipulator_p"/>
+  <!-- <arg name="use_robot_name"         default="open_manipulator_p"/> -->
   <arg name="usb_port"     default="/dev/ttyUSB0"/>
   <arg name="baud_rate"    default="1000000"/>
   <arg name="control_period"         default="0.010"/>

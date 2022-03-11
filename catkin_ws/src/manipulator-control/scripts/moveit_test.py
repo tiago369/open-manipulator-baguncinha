@@ -36,7 +36,6 @@ def main():
     "/move_group/display_planned_path",
     moveit_msgs.msg.DisplayTrajectory,
     queue_size=20,)
-    # rospy.spin()
 
     while not rospy.is_shutdown():
         wpose = move_group.get_current_pose().pose
@@ -53,6 +52,9 @@ def main():
 
         pose_goal = geometry_msgs.msg.Pose()
         pose_goal.orientation.w = p_w
+        # pose_goal.orientation.x = xq
+        # pose_goal.orientation.y = yq
+        # pose_goal.orientation.z = zq
         pose_goal.position.x = p_x
         pose_goal.position.y = p_y
         pose_goal.position.z = p_z
@@ -62,6 +64,8 @@ def main():
         # move_group.execute(plan, wait=True)
         move_group.stop()
         move_group.clear_pose_targets()
+
+        current_pose = self.move_group.get_current_pose().pose
     
 
 if __name__ == '__main__':
