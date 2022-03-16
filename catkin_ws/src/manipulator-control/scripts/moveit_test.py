@@ -2,7 +2,7 @@
 # from _future_ import print_function
 from numpy import double
 from six.moves import input
-
+import roscpp
 import sys
 import copy
 import rospy
@@ -36,6 +36,9 @@ def main():
     "/move_group/display_planned_path",
     moveit_msgs.msg.DisplayTrajectory,
     queue_size=20,)
+    # x = AsyncSpinner()
+    spinner = AsyncSpinner(self, callback=partial(setattr, self, "trg"))
+    # ros::AsyncSpinner spinner(1); spinner.start();
 
     while not rospy.is_shutdown():
         wpose = move_group.get_current_pose().pose
@@ -51,21 +54,22 @@ def main():
         p_z = double(input('z: '))
 
         pose_goal = geometry_msgs.msg.Pose()
-        pose_goal.orientation.w = p_w
+        pose_goal.orientation.w = 1.0
         # pose_goal.orientation.x = xq
         # pose_goal.orientation.y = yq
         # pose_goal.orientation.z = zq
-        pose_goal.position.x = p_x
-        pose_goal.position.y = p_y
-        pose_goal.position.z = p_z
+        pose_goal.position.x = 1.0
+        pose_goal.position.y = 1.0
+        pose_goal.position.z = 0.0
 
-        move_group.set_pose_target(pose_goal)
+        # move_group.set_pose_target(pose_goal)
         plan = move_group.go(wait=True)
-        # move_group.execute(plan, wait=True)
+        move_group.execute(plan, wait=True)
         move_group.stop()
         move_group.clear_pose_targets()
+        # rospy.spin()
 
-        current_pose = self.move_group.get_current_pose().pose
+        # current_pose = self.move_group.get_current_pose().pose
     
 
 if __name__ == '__main__':

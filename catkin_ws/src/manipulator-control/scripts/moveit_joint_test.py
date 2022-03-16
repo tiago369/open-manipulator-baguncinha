@@ -33,19 +33,22 @@ def main():
     group_name = "arm"
     # move_group = moveit_commander.MoveGroupCommander(group_name)
     group = moveit_commander.MoveGroupCommander(group_name)
+    display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
+                                               moveit_msgs.msg.DisplayTrajectory,
+                                               queue_size=20)
     
 
     while not rospy.is_shutdown():
-        # print("============ Printing robot state")
-        # print(robot.get_current_state())
+        print("============ Printing robot state")
+        print(robot.get_current_state())
         
         joint_goal = group.get_current_joint_values()
-        joint_goal[0] = 0 #junta base
+        joint_goal[0] = 0
         joint_goal[1] = 0
         joint_goal[2] = 0
         joint_goal[3] = 0 #Junta antes da munheca /  gira munheca
         joint_goal[4] = 0   #Junta da munheca
-        joint_goal[5] = 0
+        # joint_goal[5] = 0
         # print(joint_goal)
 
         group.go(joint_goal, wait=True)
