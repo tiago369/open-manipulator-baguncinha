@@ -43,7 +43,7 @@ def main():
         print(robot.get_current_state())
         
         joint_goal = group.get_current_joint_values()
-        joint_goal[0] = 0
+        joint_goal[0] = 1.5704
         joint_goal[1] = 0
         joint_goal[2] = 0
         joint_goal[3] = 0 #Junta antes da munheca /  gira munheca
