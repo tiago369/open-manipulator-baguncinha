@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-# from _future_ import print_function
-from numpy import double
-from six.moves import input
-
 import sys
 import copy
 import rospy
@@ -24,35 +20,50 @@ except:  # For Python 2 compatibility
 from std_msgs.msg import String
 from moveit_commander.conversions import pose_to_list
 
+import numpy as np
+
 def main():
 
     moveit_commander.roscpp_initialize(sys.argv)
     rospy.init_node("movit_joint_test", anonymous=True)
     robot = moveit_commander.RobotCommander()
-    scene = moveit_commander.PlanningSceneInterface()
     group_name = "arm"
-    # move_group = moveit_commander.MoveGroupCommander(group_name)
     group = moveit_commander.MoveGroupCommander(group_name)
-    display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
-                                               moveit_msgs.msg.DisplayTrajectory,
-                                               queue_size=20)
-    
 
     while not rospy.is_shutdown():
-        print("============ Printing robot state")
-        print(robot.get_current_state())
-        
+        print("===HOME===")
         joint_goal = group.get_current_joint_values()
         joint_goal[0] = 0
         joint_goal[1] = 0
-        joint_goal[2] = 0
-        joint_goal[3] = 0 #Junta antes da munheca /  gira munheca
-        joint_goal[4] = 0   #Junta da munheca
-        # joint_goal[5] = 0
-        # print(joint_goal)
+        joint_goal[2] = pi/2
+        joint_goal[3] = 0
+        joint_goal[4] = -pi/2
 
         group.go(joint_goal, wait=True)
         group.stop()
+
+        print("Search init position")
+        joint_goal[0] = pi/2
+        joint_goal[4] = 0  
+
+        group.go(joint_goal, wait=True)
+        group.stop()
+
+        print("Searching.......")
+
+        i_start = int(pi/2 * 10)
+        i_start_2 = int(pi/2 * 10)
+        for i in range(i_start, -1, -1):
+            joint_goal[2] = (i/10)
+            group.go(joint_goal, wait=True)
+            group.stop()
+            for j in range(i_start_2, -i_start_2, -1):
+                joint_goal[0] = (j/10)
+                group.go(joint_goal, wait=True)
+                group.stop()
+
+
+
 
         break
 
