@@ -1,0 +1,13 @@
+material tag2{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture aruco_02.png
+                scale 0.01 0.01
+            }
+        }   
+    }
+}
