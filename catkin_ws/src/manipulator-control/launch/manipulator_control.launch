@@ -1,0 +1,9 @@
+<launch>
+
+    <node pkg="$(find open_manipulator_p_controller)" type="open_manipulator_p_controller" name="open_manipulator_p_controller.launch" 
+    output="screen"/>
+
+    <node pkg="$(find open_manipulator_p_controllers)" type="open_manipulator_p_controllers" name="joint_trajectory_controller.launch" 
+    output="screen"/>
+
+</launch>
