@@ -239,9 +239,8 @@
           </geometry>
           <material>
             <script>
-              <name>tag3</name>
-              <uri>file://$(find manipulator-control)/materials/scripts/tag2.material</uri>
-              <uri>file://$(find manipulator-control)/materials/texture/aruco_02.png</uri>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
             </script>
           </material>
         </visual>
