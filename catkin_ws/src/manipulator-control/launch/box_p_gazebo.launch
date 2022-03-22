@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>  <!-- startup simulated world -->
+
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="box_model" command="$(find xacro)/xacro --inorder '$(find manipulator)/urdf/box.urdf.xacro'"/>
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="urdf_spawn" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -model box -z 0.0 -param box_model"/>
+</launch>

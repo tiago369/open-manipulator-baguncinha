@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<robot name="box" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <link name="box_world"/>
+<!--Box with button-->
+  <link name="box">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator-control/meshes/box.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator-control/meshes/box.dae"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.05 0 -0.1118034"/>
+      <mass value="4.91945127"/>
+      <inertia ixx="5.60655457e-2" ixy="0" ixz="8.97336882e-5" iyx="0" iyy="8.24486898e-2" iyz="0" izx="8.97336882e-5" izy="0" izz="8.24038911e-2"/>
+    </inertial>
+  </link>
+
+  <joint name="box_joint" type="fixed">
+    <parent link="box_world"/>
+    <child link="box"/>
+    <!-- <origin rpy="0 0 3.14" xyz="-0.35 0 0.2"/> -->
+    <origin rpy="0 0 3.14" xyz="0 0 0"/> 
+  </joint>
+
+  <link name="artag4">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator-control/meshes/tag.dae"/>
+      </geometry>
+    </visual> 
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator-control/meshes/tag.dae"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01052000"/>
+      <inertia ixx="8.76754333e-6" ixy="0" ixz="0" iyx="0" iyy="8.76754333e-6" iyz="0" izx="0" izy="0" izz="1.75333333e-5"/>
+    </inertial>
+  </link>
+  <joint name="tag_joint" type="fixed">
+    <parent link="box"/>
+    <child link="artag4"/>
+    <origin rpy="0 0 -1.571" xyz="0 0 0"/>
+  </joint>
+
+  <link name="button"/>
+  <joint name="button" type="fixed">
+    <parent link="artag4"/>
+    <child link="button"/>
+    <origin rpy="3.14 1.5708 3.14" xyz="0.12 0.0 0.07"/>
+    <!-- <origin rpy="0 0 0" xyz="0 -0.11500000 0.02361546"/> -->
+  </joint>
+
+</robot>
