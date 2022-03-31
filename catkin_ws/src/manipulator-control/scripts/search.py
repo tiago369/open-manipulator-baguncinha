@@ -33,34 +33,38 @@ def main():
     while not rospy.is_shutdown():
         print("===HOME===")
         joint_goal = group.get_current_joint_values()
-        joint_goal[0] = 0
-        joint_goal[1] = 0
+        joint_goal[0] = 0 # Gira o braço
+        joint_goal[1] = 0 # Levanta e abaixa o braço 
+        joint_goal[2] = 0 # Abre e fecha o braço
+        joint_goal[3] = 0 # Gira o proximo
+        joint_goal[4] = 0 # Levanta e fecha a ferramenta
+        joint_goal[5] = 0 # Gira a garra
+
+        joint_goal[0] = pi/2 # Gira o braço
+
+        group.go(joint_goal, wait=True)
+        group.stop()
+
         joint_goal[2] = pi/2
-        joint_goal[3] = 0
-        joint_goal[4] = -pi/2
-
+        joint_goal[4] = -pi/3
         group.go(joint_goal, wait=True)
         group.stop()
 
-        print("Search init position")
-        joint_goal[0] = pi/2
-        joint_goal[4] = 0  
-
-        group.go(joint_goal, wait=True)
-        group.stop()
 
         print("Searching.......")
 
         i_start = int(pi/2 * 10)
         i_start_2 = int(pi/2 * 10)
-        for i in range(i_start, -1, -1):
-            joint_goal[2] = (i/10)
+        for i in range(i_start, -1, -(i_start)):
+            joint_goal[0] = (i/10)
             group.go(joint_goal, wait=True)
             group.stop()
-            for j in range(i_start_2, -i_start_2, -1):
-                joint_goal[0] = (j/10)
-                group.go(joint_goal, wait=True)
-                group.stop()
+            if rospy.is_shutdown():
+                break
+            # for j in range(i_start_2, -i_start_2, -1):
+            #     joint_goal[0] = (j/10)
+            #     group.go(joint_goal, wait=True)
+            #     group.stop()
 
 
 
