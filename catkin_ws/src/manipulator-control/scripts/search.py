@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from ntpath import join
 import sys
 import copy
 import rospy
@@ -40,6 +41,9 @@ def main():
         joint_goal[4] = 0 # Levanta e fecha a ferramenta
         joint_goal[5] = 0 # Gira a garra
 
+        group.go(joint_goal, wait=True)
+        group.stop()
+
         joint_goal[0] = pi/2 # Gira o braço
 
         group.go(joint_goal, wait=True)
@@ -54,17 +58,21 @@ def main():
         print("Searching.......")
 
         i_start = int(pi/2 * 10)
-        i_start_2 = int(pi/2 * 10)
-        for i in range(i_start, -1, -(i_start)):
-            joint_goal[0] = (i/10)
+        i_start_2 = int(-pi/3 * 10)
+        for j in range(i_start_2, -(i_start), -1):
+            joint_goal[4] = (j/10)
             group.go(joint_goal, wait=True)
             group.stop()
             if rospy.is_shutdown():
                 break
-            # for j in range(i_start_2, -i_start_2, -1):
-            #     joint_goal[0] = (j/10)
-            #     group.go(joint_goal, wait=True)
-            #     group.stop()
+            for i in range(i_start, -(i_start), -1):
+                joint_goal[0] = (i/10)
+                group.go(joint_goal, wait=True)
+                group.stop()
+                if rospy.is_shutdown():
+                    break
+
+        print("Init pick algorithm")
 
 
 
