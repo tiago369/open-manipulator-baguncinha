@@ -33,6 +33,7 @@ def main():
 
     while not rospy.is_shutdown():
         print("===HOME===")
+        print(group.get_current_joint_values())
         joint_goal = group.get_current_joint_values()
         joint_goal[0] = 0 # Gira o braço
         joint_goal[1] = 0 # Levanta e abaixa o braço 
@@ -56,21 +57,39 @@ def main():
 
 
         print("Searching.......")
-
+        cont = 1
         i_start = int(pi/2 * 10)
         i_start_2 = int(-pi/3 * 10)
         for j in range(i_start_2, -(i_start), -1):
             joint_goal[4] = (j/10)
             group.go(joint_goal, wait=True)
             group.stop()
+            pose = group.get_current_joint_values()
             if rospy.is_shutdown():
                 break
-            for i in range(i_start, -(i_start), -1):
-                joint_goal[0] = (i/10)
-                group.go(joint_goal, wait=True)
-                group.stop()
-                if rospy.is_shutdown():
-                    break
+            
+            if int((pose[0])*10) == i_start:
+                cont = 1
+                print(cont)
+            elif int((pose[0])*10) == -i_start:
+                cont = 0
+                print(cont)
+
+            if cont == 1:
+                for i in range(i_start, -(i_start)-1, -1):
+                    joint_goal[0] = (i/10)
+                    group.go(joint_goal, wait=True)
+                    group.stop()
+                    if rospy.is_shutdown():
+                        break
+            elif cont == 0:
+                for k in range(-(i_start), i_start+1, 1):
+                    joint_goal[0] = (k/10)
+                    group.go(joint_goal, wait=True)
+                    group.stop()
+                    if rospy.is_shutdown():
+                        break
+            
 
         print("Init pick algorithm")
 
