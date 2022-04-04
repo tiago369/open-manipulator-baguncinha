@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+
+<robot name="box" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="tag" value="tag.dae" />
+
+  <link name="box">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.2 0.05"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.2 0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.05 0 -0.1118034"/>
+      <mass value="4.91945127"/>
+      <inertia ixx="5.60655457e-2" ixy="0" ixz="8.97336882e-5" iyx="0" iyy="8.24486898e-2" iyz="0" izx="8.97336882e-5" izy="0" izz="8.24038911e-2"/>
+    </inertial>
+  </link>
+
+  <!-- Primeira caixa -->
+
+  <link name="artag1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator-control/meshes/${tag}" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </visual> 
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator-control/meshes/${tag}" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01052000"/>
+      <inertia ixx="8.76754333e-6" ixy="0" ixz="0" iyx="0" iyy="8.76754333e-6" iyz="0" izx="0" izy="0" izz="1.75333333e-5"/>
+    </inertial>
+  </link>
+
+  <joint name="tag_joint1" type="fixed">
+    <parent link="box"/>
+    <child link="artag1"/>
+    <origin rpy="0 0 -1.571" xyz="-0.025 0.025 0.025"/>
+  </joint>
+
+  <!-- Segunda caixa -->
+
+  <link name="artag2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator-control/meshes/${tag}" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </visual> 
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator-control/meshes/${tag}" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01052000"/>
+      <inertia ixx="8.76754333e-6" ixy="0" ixz="0" iyx="0" iyy="8.76754333e-6" iyz="0" izx="0" izy="0" izz="1.75333333e-5"/>
+    </inertial>
+  </link>
+
+  <joint name="tag_joint2" type="fixed">
+    <parent link="box"/>
+    <child link="artag2"/>
+    <origin rpy="0 0 -1.571" xyz="-0.025 -0.025 0.025"/>
+  </joint>
+
+  <!-- Terceira caixa -->
+
+  <link name="artag3">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator-control/meshes/${tag}" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </visual> 
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator-control/meshes/${tag}" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01052000"/>
+      <inertia ixx="8.76754333e-6" ixy="0" ixz="0" iyx="0" iyy="8.76754333e-6" iyz="0" izx="0" izy="0" izz="1.75333333e-5"/>
+    </inertial>
+  </link>
+
+  <joint name="tag_joint3" type="fixed">
+    <parent link="box"/>
+    <child link="artag3"/>
+    <origin rpy="0 0 -1.571" xyz="0.025 0 0.025"/>
+  </joint>
+
+</robot>
