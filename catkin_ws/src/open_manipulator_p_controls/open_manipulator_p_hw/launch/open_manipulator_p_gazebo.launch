@@ -5,7 +5,7 @@
   <arg name="use_sim_time" default="true"/>
   <arg name="with_gripper" default="false"/>
 
-  <!-- startup simulated world -->
+  <!-- startup simuOSted world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="paused" value="$(arg paused)"/>
     <arg name="gui" value="$(arg gui)"/>

@@ -4,6 +4,8 @@
 
   <xacro:property name="tag" value="tag.dae" />
 
+  <!-- <link name="world"/> -->
+
   <link name="box">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -30,13 +32,13 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://manipulator-control/meshes/${tag}" scale="0.5 0.5 0.5"/>
+        <mesh filename="package://manipulator-control/meshes/${tag}" scale="1 1 1"/>
       </geometry>
     </visual> 
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://manipulator-control/meshes/${tag}" scale="0.5 0.5 0.5"/>
+        <mesh filename="package://manipulator-control/meshes/${tag}" scale="1 1 1"/>
       </geometry>
     </collision>
     <inertial>
@@ -54,7 +56,7 @@
 
   <!-- Segunda caixa -->
 
-  <link name="artag2">
+  <!-- <link name="artag2">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -78,11 +80,11 @@
     <parent link="box"/>
     <child link="artag2"/>
     <origin rpy="0 0 -1.571" xyz="-0.025 -0.025 0.025"/>
-  </joint>
+  </joint> -->
 
   <!-- Terceira caixa -->
 
-  <link name="artag3">
+  <!-- <link name="artag3">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -106,6 +108,6 @@
     <parent link="box"/>
     <child link="artag3"/>
     <origin rpy="0 0 -1.571" xyz="0.025 0 0.025"/>
-  </joint>
+  </joint> -->
 
 </robot>
