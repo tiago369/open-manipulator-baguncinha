@@ -32,13 +32,13 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://manipulator-control/meshes/${tag}" scale="1 1 1"/>
+        <mesh filename="package://manipulator-control/meshes/${tag}" scale="0.5 0.5 0.5"/>
       </geometry>
     </visual> 
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://manipulator-control/meshes/${tag}" scale="1 1 1"/>
+        <mesh filename="package://manipulator-control/meshes/${tag}" scale="0.5 0.5 0.5"/>
       </geometry>
     </collision>
     <inertial>

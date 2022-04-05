@@ -6,7 +6,7 @@
     <arg name="enable/tf" default="true"/>
     <arg name="markers/prefix" default="id_"/>
     <arg name="markers/dictionary" default="0"/>
-    <arg name="markers/lengths" default="[100]"/>
+    <arg name="markers/lengths" default="[50]"/>
     <arg name="camera/tf_name" default="camera_link"/>
     <arg name="camera/matrix" default="[476.7030836014194, 0.0, 400.5, 0.0, 476.7030836014194, 400.5, 0.0, 0.0, 1.0]" />
     <arg name="camera/distortion" default="[0.0, 0.0, 0.0, 0.0, 0.0]" />
