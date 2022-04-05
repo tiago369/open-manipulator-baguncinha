@@ -31,6 +31,5 @@
         <remap from="detected_markers/pose" to="/detected_markers/output"/>
     </node>
 
-
-    <node pkg="tf2_ros" type="static_transform_publisher" name="artag4" args="-0.025 0.025 0.025 0 0 0 1 id_4 box"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="artag0_" args="0 0 0 0 0 0 1 id_4 box"/>
 </launch>
