@@ -447,4 +447,13 @@
     </sensor>
   </gazebo>
 
+  <!-- Fake camera link to reoriented the camera link -->
+  <link name="camera_fake"/>
+
+  <joint name="fake_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 1.570796 0"/>
+    <parent link="camera_link"/>
+    <child link="camera_fake"/>
+  </joint>
+  <!-- 1.570796 -->
 </robot>

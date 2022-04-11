@@ -6,7 +6,7 @@ Panels:
       Expanded:
         - /MotionPlanning1
         - /TF1
-        - /TF1/Status1
+        - /TF1/Frames1
       Splitter Ratio: 0.7425600290298462
     Tree Height: 299
   - Class: rviz/Help
@@ -72,6 +72,10 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
+          camera_fake:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           camera_link:
             Alpha: 1
             Show Axes: false
@@ -182,6 +186,10 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
+          camera_fake:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           camera_link:
             Alpha: 1
             Show Axes: false
@@ -265,39 +273,43 @@ Visualization Manager:
       Value: true
     - Class: rviz/TF
       Enabled: true
-      Frame Timeout: 15
+      Frame Timeout: 999
       Frames:
-        All Enabled: true
+        All Enabled: false
         artag1:
           Value: true
         box:
-          Value: true
+          Value: false
+        camera_fake:
+          Value: false
         camera_link:
-          Value: true
+          Value: false
         end_effector_link:
-          Value: true
+          Value: false
         end_link:
-          Value: true
+          Value: false
         gripper_link:
-          Value: true
+          Value: false
         gripper_main_link:
-          Value: true
+          Value: false
         gripper_sub_link:
+          Value: false
+        id_4:
           Value: true
         link1:
-          Value: true
+          Value: false
         link2:
-          Value: true
+          Value: false
         link3:
-          Value: true
+          Value: false
         link4:
-          Value: true
+          Value: false
         link5:
-          Value: true
+          Value: false
         link6:
-          Value: true
+          Value: false
         world:
-          Value: true
+          Value: false
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
@@ -313,7 +325,8 @@ Visualization Manager:
                   link5:
                     link6:
                       camera_link:
-                        {}
+                        camera_fake:
+                          {}
                       end_link:
                         gripper_main_link:
                           end_effector_link:
@@ -340,7 +353,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 1.3131463527679443
+      Distance: 0.8669344186782837
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -348,17 +361,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.6792207956314087
-        Y: -0.5013185739517212
-        Z: 2.2351798634190345e-07
+        X: 0.6782430410385132
+        Y: 0.054006487131118774
+        Z: 1.6391334156651283e-07
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.2147970199584961
+      Pitch: 0.4747968018054962
       Target Frame: world
-      Yaw: 4.53494930267334
+      Yaw: 0.14677125215530396
     Saved: ~
 Window Geometry:
   Displays:
