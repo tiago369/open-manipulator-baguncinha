@@ -34,8 +34,8 @@ def main():
 
         pose_goal = geometry_msgs.msg.Pose()
         pose_goal.orientation.w = 1.0
-        pose_goal.position.x = 0.2
-        pose_goal.position.y = 0.2
+        pose_goal.position.x = 0.6
+        pose_goal.position.y = 0.0
         pose_goal.position.z = 0.2
         group.set_pose_target(pose_goal)
         plan = group.go(wait=True)

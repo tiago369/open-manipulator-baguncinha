@@ -80,11 +80,11 @@ def main():
         (tr, rt) = tf_world_box()
 
         print('Use axis')
-        print(rt[0])
+        print(tr[0])
         pose_goal = geometry_msgs.msg.Pose()
-        pose_goal.position.x = rt[0]
-        pose_goal.position.y = rt[1]
-        pose_goal.position.z = rt[2]
+        pose_goal.position.x = tr[0]
+        pose_goal.position.y = 0.4
+        pose_goal.position.z = 0.4
         group.set_pose_target(pose_goal)
         group.go(pose_goal, wait=True)
         group.stop()
