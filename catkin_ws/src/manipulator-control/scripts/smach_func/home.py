@@ -38,7 +38,7 @@ def home():
     joint_goal[2] = -158 * pi / 180# Abre e fecha o braço
     joint_goal[3] = 1 *pi/180 # Gira o proximo
     joint_goal[4] = 0 *pi/180 # Levanta e fecha a ferramenta
-    joint_goal[5] = -(45*pi/180) # Gira a garra
+    # joint_goal[5] = -(45*pi/180) # Gira a garra
     group.go(joint_goal, wait=True)
     group.stop()
 

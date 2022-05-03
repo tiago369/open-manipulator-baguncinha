@@ -1,9 +1,8 @@
 <launch>
+    <include file="$(find open_manipulator_p_controllers)/launch/joint_trajectory_controller.launch"/>
 
-    <node pkg="$(find open_manipulator_p_controller)" type="open_manipulator_p_controller" name="open_manipulator_p_controller.launch" 
-    output="screen"/>
+    <include file="$(find usb_cam)/launch/usb_cam-test.launch"/>
 
-    <node pkg="$(find open_manipulator_p_controllers)" type="open_manipulator_p_controllers" name="joint_trajectory_controller.launch" 
-    output="screen"/>
+    <include file="$(find marker_localization)/launch/free_markers_localization.launch"/>
 
 </launch>
