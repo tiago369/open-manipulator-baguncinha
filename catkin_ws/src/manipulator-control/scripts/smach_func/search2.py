@@ -14,15 +14,17 @@ def search2():
     joint_goal = group.get_current_joint_values()
     x = joint_goal[0] * 100
     y = 90 * pi / 180 * 100
-    for i in range(int(x), int(y), 2):
-        # rospy.sleep(0.01)
+    for i in range(int(x), int(y), 10):
         joint_goal[0] = i / 100
+
+        if rospy.is_shutdown():
+            break
 
         group.go(joint_goal, wait=True)
         group.stop()
 
-    return 'outcome2'
+    return 'cont'
 
 
 if __name__ == '__main__':
-    init_pose()
+    search2()

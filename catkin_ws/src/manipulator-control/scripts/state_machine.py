@@ -24,7 +24,6 @@ from smach_func.home import home
 from smach_func.tag_check import tag_check
 from smach_func.tf_world_box import tf_world_box
 from smach_func.search1 import search1
-from smach_func.sobe1 import sobe1
 from smach_func.search2 import search2
 
 import math
@@ -55,15 +54,12 @@ class Home(smach.State):
 
 class Init_pose(smach.State):
     def __init__(self):
-        smach.State.__init__(self, outcomes=['cont', 'rep'])
+        smach.State.__init__(self, outcomes=['outcome2'])
 
     def execute(self, userdata):
-        init_pose()
-        # rospy.sleep(1)
-        print('------------')
-        x = tag_check()
+        x = init_pose()
+        rospy.sleep(1)
         return x
-
 
 class Search1(smach.State):
     def __init__(self):
@@ -71,16 +67,6 @@ class Search1(smach.State):
 
     def execute(self, userdata):
         search1()
-        rospy.sleep(1)
-        x = tag_check()
-        return x
-
-class Sobe1(smach.State):
-    def __init__(self):
-        smach.State.__init__(self, outcomes=['cont', 'rep'])
-
-    def execute(self, userdata):
-        sobe1()
         rospy.sleep(1)
         x = tag_check()
         return x
@@ -140,20 +126,15 @@ def main():
                                transitions={'cont':'INIT_POSE'})
         smach.StateMachine.add('INIT_POSE', 
                                Init_pose(), 
-                               transitions={'rep':'HOME',
+                               transitions={'outcome2':'SEARCH1'})
+        smach.StateMachine.add('SEARCH1', 
+                               Search1(), 
+                               transitions={'rep':'SEARCH2',
                                'cont':'HOME'})
-        # smach.StateMachine.add('SEARCH1', 
-        #                        Search1(), 
-        #                        transitions={'rep':'SOBE1',
-        #                        'cont':'POSITION'})
-        # smach.StateMachine.add('SOBE1', 
-        #                        Sobe1(), 
-        #                        transitions={'rep':'SEARCH2',
-        #                        'cont':'POSITION'})
-        # smach.StateMachine.add('SEARCH2', 
-        #                        Search2(), 
-        #                        transitions={'rep':'SEARCH1',
-        #                        'cont':'POSITION'})
+        smach.StateMachine.add('SEARCH2', 
+                               Search2(), 
+                               transitions={'rep':'SEARCH1',
+                               'cont':'HOME'})
         # smach.StateMachine.add('POSITION', 
                             #    Position() 
                             #    )
