@@ -12,15 +12,15 @@ def init_pose():
     group_name = "arm"
     group = moveit_commander.MoveGroupCommander(group_name)
     joint_goal = group.get_current_joint_values()
-    joint_goal[0] = 90 * pi / 180
-    joint_goal[1] = 21 * pi / 180
-    joint_goal[2] = 37 * pi / 180
-    joint_goal[4] = -20 * pi /180
+    # joint_goal[0] = 90 * pi / 180
+    # joint_goal[1] = 21 * pi / 180
+    joint_goal[2] = -103 * pi / 180
+    joint_goal[4] = -75 * pi /180
 
     group.go(joint_goal, wait=True)
     group.stop()
 
-    joint_goal[0] = 0
+    joint_goal[2] = -50* pi /180
 
     group.go(joint_goal, wait=True)
     group.stop()

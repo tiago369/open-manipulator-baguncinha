@@ -59,9 +59,11 @@ class Init_pose(smach.State):
 
     def execute(self, userdata):
         init_pose()
-        rospy.sleep(1)
+        # rospy.sleep(1)
+        print('------------')
         x = tag_check()
         return x
+
 
 class Search1(smach.State):
     def __init__(self):
@@ -138,23 +140,23 @@ def main():
                                transitions={'cont':'INIT_POSE'})
         smach.StateMachine.add('INIT_POSE', 
                                Init_pose(), 
-                               transitions={'rep':'SEARCH1',
-                               'cont':'POSITION'})
-        smach.StateMachine.add('SEARCH1', 
-                               Search1(), 
-                               transitions={'rep':'SOBE1',
-                               'cont':'POSITION'})
-        smach.StateMachine.add('SOBE1', 
-                               Sobe1(), 
-                               transitions={'rep':'SEARCH2',
-                               'cont':'POSITION'})
-        smach.StateMachine.add('SEARCH2', 
-                               Search2(), 
-                               transitions={'rep':'SEARCH1',
-                               'cont':'POSITION'})
-        smach.StateMachine.add('POSITION', 
-                               Position() 
-                               )
+                               transitions={'rep':'HOME',
+                               'cont':'HOME'})
+        # smach.StateMachine.add('SEARCH1', 
+        #                        Search1(), 
+        #                        transitions={'rep':'SOBE1',
+        #                        'cont':'POSITION'})
+        # smach.StateMachine.add('SOBE1', 
+        #                        Sobe1(), 
+        #                        transitions={'rep':'SEARCH2',
+        #                        'cont':'POSITION'})
+        # smach.StateMachine.add('SEARCH2', 
+        #                        Search2(), 
+        #                        transitions={'rep':'SEARCH1',
+        #                        'cont':'POSITION'})
+        # smach.StateMachine.add('POSITION', 
+                            #    Position() 
+                            #    )
 
 
     # Execute SMACH plan

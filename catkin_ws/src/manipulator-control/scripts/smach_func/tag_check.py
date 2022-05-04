@@ -25,14 +25,21 @@ import numpy as np
 import tf
 
 def tag_check():
+    # rospy.init_node('turtle_tf_listener')
     listener = tf.TransformListener()
 
+    # rate = rospy.Rate(10.0)
     while not rospy.is_shutdown():
+        listener.waitForTransform('/world', '/id_4', rospy.Time(), rospy.Duration(5.0))
         try:
-            (trans,rot) = listener.lookupTransform('/camera_fake', '/id_4', rospy.Time(0))
+            (trans,rot) = listener.lookupTransform('/world', '/id_4', rospy.Time(0))
+            print(trans)
             return 'cont'
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+            print('a')
             return 'rep'
+            continue
+        # rate.sleep()
 
 
 if __name__ == '__main__':
