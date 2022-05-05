@@ -31,7 +31,7 @@ def tag_check():
         try:
             # listener.waitForTransform('/world', '/id_4', rospy.Time(), rospy.Duration(5.0))
             rospy.sleep(1)
-            (trans,rot) = listener.lookupTransform('/world', '/id_4', rospy.Time(10))
+            (trans,rot) = listener.lookupTransform('/world', '/id_4', rospy.Time(0))
             print(trans)
             return 'cont'
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):

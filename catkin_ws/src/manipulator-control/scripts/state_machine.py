@@ -21,10 +21,10 @@ import smach_ros
 
 from smach_func.init_pose import init_pose
 from smach_func.home import home
-from smach_func.tag_check import tag_check
 from smach_func.tf_world_box import tf_world_box
 from smach_func.search1 import search1
 from smach_func.search2 import search2
+from smach_func.aprox import aprox
 
 import math
 def euler_from_quaternion(x, y, z, w):
@@ -49,6 +49,7 @@ class Home(smach.State):
 
     def execute(self, userdata):
         x = home()
+        rospy.sleep(1)
         return x
         
 
@@ -66,9 +67,9 @@ class Search1(smach.State):
         smach.State.__init__(self, outcomes=['cont', 'rep'])
 
     def execute(self, userdata):
-        search1()
+        x = search1()
         rospy.sleep(1)
-        x = tag_check()
+        # x = tag_check()
         return x
 
 class Search2(smach.State):
@@ -76,9 +77,18 @@ class Search2(smach.State):
         smach.State.__init__(self, outcomes=['cont', 'rep'])
 
     def execute(self, userdata):
-        search2()
+        x = search2()
         rospy.sleep(1)
-        x = tag_check()
+        # x = tag_check()
+        return x
+
+class Aprox(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['cont', 'rep'])
+
+    def execute(self, userdata):
+        x = aprox()
+        rospy.sleep(1)
         return x
 
 class Position(smach.State):
@@ -130,14 +140,15 @@ def main():
         smach.StateMachine.add('SEARCH1', 
                                Search1(), 
                                transitions={'rep':'SEARCH2',
-                               'cont':'HOME'})
+                               'cont':'APROX'})
         smach.StateMachine.add('SEARCH2', 
                                Search2(), 
                                transitions={'rep':'SEARCH1',
-                               'cont':'HOME'})
-        # smach.StateMachine.add('POSITION', 
-                            #    Position() 
-                            #    )
+                               'cont':'APROX'})
+        smach.StateMachine.add('APROX', 
+                               Aprox(),
+                               transitions={'cont':'HOME'
+                               })
 
 
     # Execute SMACH plan
