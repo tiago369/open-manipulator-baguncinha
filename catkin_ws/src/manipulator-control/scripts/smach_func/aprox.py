@@ -29,16 +29,45 @@ def aprox():
     group_name = "arm"
     group = moveit_commander.MoveGroupCommander(group_name)
 
-    [trans, rot] = tf_world_box()
-    pose_goal = geometry_msgs.msg.Pose()
-    pose_goal.orientation.w = 1.0
-    pose_goal.position.x = trans[0]
-    pose_goal.position.y = trans[1]
-    pose_goal.position.z = trans[2] + 0.1
-    group.set_pose_target(pose_goal)
-    plan = group.go(wait=True)
-    group.stop()
-    group.clear_pose_targets()
+    while not rospy.is_shutdown():
+        [trans, rot] = tf_world_box()
+        pose_goal = geometry_msgs.msg.Pose()
+        # pose_goal.orientation.x = rot[0]
+        # pose_goal.orientation.y = rot[1]
+        # pose_goal.orientation.z = rot[2]
+        pose_goal.orientation.w = 1.0
+        pose_goal.position.x = trans[0]
+        pose_goal.position.y = trans[1] 
+        pose_goal.position.z = 0.4
+        group.set_pose_target(pose_goal)
+        plan = group.go(wait=True)
+        group.stop()
+        group.clear_pose_targets()
+        rospy.sleep(1)
+
+        print('.cu')
+
+        joint_goal = group.get_current_joint_values()
+        joint_goal[2] = joint_goal[2] - 10 * pi / 180
+        joint_goal[3] = 90 *pi/180 # Gira o proximo
+        joint_goal[4] = 70 * pi /180
+        group.go(joint_goal, wait=True)
+        rospy.sleep(1)
+        group.stop()
+        rospy.sleep(1)
+        print('cuda')
+
+        dif_x = pose_goal.position.x - trans[0]
+        dif_y = pose_goal.position.y - trans[1]
+
+        dif_x = ((dif_x)**2)**0.5
+        dif_y = ((dif_y)**2)**0.5
+        
+        if dif_x < 0.001 and dif_y < 0.001:
+            return 'cont'
+
+        
+
 
 if __name__ == '__main__':
     aprox()

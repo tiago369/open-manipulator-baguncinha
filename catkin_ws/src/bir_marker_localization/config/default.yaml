@@ -5,8 +5,8 @@ robot_as_parent: true
 camera_tf_name: camera_optical_frame
 map_tf_name: map
 base_tf_name: base_link
-camera_matrix: [554.254691191187, 0.0, 0.0, 0.0, 554.254691191187, 0.0, 0.0, 0.0, 1.0]
-camera_distortion: [0.0, 0.0, 0.0, 0.0, 0.0]
+camera_matrix: [1130.458671, 0.000000, 545.323771, 0.000000, 1154.159372, 262.356965, 0.000000, 0.000000, 1.000000]
+camera_distortion: [0.053037, 0.116553, 0.000778, 0.004628, 0.000000]
 image_topic: arm/camera1/image_raw
 markers_dictionary: 11
 markers_length: [50] # length in mm.

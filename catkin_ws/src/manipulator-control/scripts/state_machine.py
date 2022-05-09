@@ -25,6 +25,7 @@ from smach_func.tf_world_box import tf_world_box
 from smach_func.search1 import search1
 from smach_func.search2 import search2
 from smach_func.aprox import aprox
+from smach_func.check_aprox import check_aprox
 
 import math
 def euler_from_quaternion(x, y, z, w):
@@ -84,39 +85,22 @@ class Search2(smach.State):
 
 class Aprox(smach.State):
     def __init__(self):
-        smach.State.__init__(self, outcomes=['cont', 'rep'])
+        smach.State.__init__(self, outcomes=['cont'])
 
     def execute(self, userdata):
         x = aprox()
+        rospy.sleep(5)
+        return x
+
+class Check_aprox(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['cont', 'rep'])
+
+    def execute(self, userdata):
+        x = check_aprox()
         rospy.sleep(1)
         return x
 
-class Position(smach.State):
-    def __init__(self):
-        smach.State.__init__(self, outcomes=['outcome2'])
-    
-    def execute(self, userdata):
-        (tr, rt) = tf_world_box()
-        pose_goal = geometry_msgs.msg.Pose()
-        pose_goal.orientation.w = 1.0
-        pose_goal.position.x = tr[0]+0.1
-        pose_goal.position.y = tr[1]
-        pose_goal.position.z = 0.3
-        group.set_pose_target(pose_goal)
-        plan = group.go(wait=True)
-        group.stop()
-        group.clear_pose_targets()
-
-        joint_goal = group.get_current_joint_values()
-        joint_goal[4] = joint_goal[4] + 90 * pi / 180
-        [roll, pitch, yaw] = euler_from_quaternion(rt[0], rt[1], rt[2], rt[3])
-        print(roll)
-        # joint_goal[5] = roll 
-
-        group.go(joint_goal, wait=True)
-        group.stop()
-
-        return 'outcome2'
 
 def main():
     rospy.init_node("statemachine", anonymous=True)
@@ -147,7 +131,7 @@ def main():
                                'cont':'APROX'})
         smach.StateMachine.add('APROX', 
                                Aprox(),
-                               transitions={'cont':'HOME'
+                               transitions={'cont':'APROX'
                                })
 
 

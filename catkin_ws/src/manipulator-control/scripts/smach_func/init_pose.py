@@ -14,7 +14,7 @@ def init_pose():
     joint_goal = group.get_current_joint_values()
     joint_goal[0] = 90 * pi / 180
     # joint_goal[1] = 21 * pi / 180
-    joint_goal[2] = -131 * pi / 180
+    joint_goal[2] = -114 * pi / 180
     joint_goal[4] = 70 * pi /180
 
     group.go(joint_goal, wait=True)

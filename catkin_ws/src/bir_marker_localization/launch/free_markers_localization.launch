@@ -6,10 +6,10 @@
     <arg name="enable/tf" default="true"/>
     <arg name="markers/prefix" default="id_"/>
     <arg name="markers/dictionary" default="0"/>
-    <arg name="markers/lengths" default="[50]"/>
+    <arg name="markers/lengths" default="[15]"/>
     <arg name="camera/tf_name" default="camera_fake"/>
-    <arg name="camera/matrix" default="[1341.682403 0.000000 439.948312 0.000000 1333.685392 365.446215 0.000000 0.000000 1.000000]" />
-    <arg name="camera/distortion" default="[0.121862 -0.129513 0.008585 -0.016970 0.000000]" />
+    <arg name="camera/matrix" default="[1130.458671 0.000000 545.323771 0.000000 1154.159372 262.356965 0.000000 0.000000 1.000000]" />
+    <arg name="camera/distortion" default="[0.053037 0.116553 0.000778 0.004628 0.000000]" />
     <arg name="markers_param_file" default="$(find marker_localization)/config/markers_config.yaml" />
 
     <node pkg="marker_localization" type="free_markers_localization" name="free_markers_localization" output="screen">
