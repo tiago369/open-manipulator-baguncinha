@@ -26,6 +26,7 @@ from smach_func.search1 import search1
 from smach_func.search2 import search2
 from smach_func.aprox import aprox
 from smach_func.check_aprox import check_aprox
+from smach_func.pose2pick import pose2pick
 
 import math
 def euler_from_quaternion(x, y, z, w):
@@ -92,13 +93,13 @@ class Aprox(smach.State):
         rospy.sleep(5)
         return x
 
-class Check_aprox(smach.State):
+class Pose2pick(smach.State):
     def __init__(self):
-        smach.State.__init__(self, outcomes=['cont', 'rep'])
+        smach.State.__init__(self, outcomes=['cont'])
 
     def execute(self, userdata):
-        x = check_aprox()
-        rospy.sleep(1)
+        x = pose2pick()
+        rospy.sleep(5)
         return x
 
 
@@ -123,15 +124,17 @@ def main():
                                transitions={'outcome2':'SEARCH1'})
         smach.StateMachine.add('SEARCH1', 
                                Search1(), 
-                               transitions={'rep':'SEARCH2',
-                               'cont':'APROX'})
+                               transitions={'rep':'SEARCH2', 'cont':'APROX'})
         smach.StateMachine.add('SEARCH2', 
                                Search2(), 
                                transitions={'rep':'SEARCH1',
                                'cont':'APROX'})
-        smach.StateMachine.add('APROX', 
-                               Aprox(),
-                               transitions={'cont':'APROX'
+        smach.StateMachine.add('APROX', Aprox(),
+                               transitions={'cont':'POSE2PICK'
+                               })
+        smach.StateMachine.add('POSE2PICK', 
+                               Pose2pick(),
+                               transitions={'cont':'HOME'
                                })
 
 

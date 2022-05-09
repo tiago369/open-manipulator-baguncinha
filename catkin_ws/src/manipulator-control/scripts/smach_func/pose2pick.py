@@ -24,52 +24,31 @@ import numpy as np
 import tf
 from smach_func.tf_world_box import tf_world_box
 
-def aprox():
+def pose2pick():
     robot = moveit_commander.RobotCommander()
     group_name = "arm"
     group = moveit_commander.MoveGroupCommander(group_name)
-
+    
     while not rospy.is_shutdown():
-        [trans, rot] = tf_world_box()
+        print('aaaaa')
         current_pose = group.get_current_pose().pose
         pose_goal = geometry_msgs.msg.Pose()
         pose_goal.orientation.x = current_pose.orientation.x
         pose_goal.orientation.y = current_pose.orientation.y
         pose_goal.orientation.z = current_pose.orientation.z
         pose_goal.orientation.w = current_pose.orientation.w
-        pose_goal.position.x = rot[0]
-        pose_goal.position.y = rot[1]
-        pose_goal.position.z = 0.3
+        pose_goal.position.x = current_pose.position.x
+        pose_goal.position.y = current_pose.position.y
+        pose_goal.position.z = 0.12
         group.set_pose_target(pose_goal)
         plan = group.go(wait=True)
         group.stop()
         group.clear_pose_targets()
         rospy.sleep(1)
 
-        print('.cu')
+        print('.deu')
         return 'cont'
-
-        # joint_goal = group.get_current_joint_values()
-        # joint_goal[2] = joint_goal[2] - 10 * pi / 180
-        # joint_goal[3] = 90 *pi/180 # Gira o proximo
-        # joint_goal[4] = 70 * pi /180
-        # group.go(joint_goal, wait=True)
-        # rospy.sleep(1)
-        # group.stop()
-        # rospy.sleep(1)
-        # print('cuda')
-
-        # dif_x = pose_goal.position.x - trans[0]
-        # dif_y = pose_goal.position.y - trans[1]
-
-        # dif_x = ((dif_x)**2)**0.5
-        # dif_y = ((dif_y)**2)**0.5
-        
-        # if dif_x < 0.01 and dif_y < 0.01:
-        #     return 'cont'
-
-        
 
 
 if __name__ == '__main__':
-    aprox()
+    pose2pick()
