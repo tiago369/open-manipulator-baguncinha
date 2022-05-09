@@ -21,11 +21,11 @@ import smach_ros
 
 from smach_func.init_pose import init_pose
 from smach_func.home import home
-from smach_func.tag_check import tag_check
 from smach_func.tf_world_box import tf_world_box
 from smach_func.search1 import search1
-from smach_func.sobe1 import sobe1
 from smach_func.search2 import search2
+from smach_func.aprox import aprox
+from smach_func.check_aprox import check_aprox
 
 import math
 def euler_from_quaternion(x, y, z, w):
@@ -50,17 +50,17 @@ class Home(smach.State):
 
     def execute(self, userdata):
         x = home()
+        rospy.sleep(1)
         return x
         
 
 class Init_pose(smach.State):
     def __init__(self):
-        smach.State.__init__(self, outcomes=['cont', 'rep'])
+        smach.State.__init__(self, outcomes=['outcome2'])
 
     def execute(self, userdata):
-        init_pose()
+        x = init_pose()
         rospy.sleep(1)
-        x = tag_check()
         return x
 
 class Search1(smach.State):
@@ -68,19 +68,9 @@ class Search1(smach.State):
         smach.State.__init__(self, outcomes=['cont', 'rep'])
 
     def execute(self, userdata):
-        search1()
+        x = search1()
         rospy.sleep(1)
-        x = tag_check()
-        return x
-
-class Sobe1(smach.State):
-    def __init__(self):
-        smach.State.__init__(self, outcomes=['cont', 'rep'])
-
-    def execute(self, userdata):
-        sobe1()
-        rospy.sleep(1)
-        x = tag_check()
+        # x = tag_check()
         return x
 
 class Search2(smach.State):
@@ -88,37 +78,29 @@ class Search2(smach.State):
         smach.State.__init__(self, outcomes=['cont', 'rep'])
 
     def execute(self, userdata):
-        search2()
+        x = search2()
         rospy.sleep(1)
-        x = tag_check()
+        # x = tag_check()
         return x
 
-class Position(smach.State):
+class Aprox(smach.State):
     def __init__(self):
-        smach.State.__init__(self, outcomes=['outcome2'])
-    
+        smach.State.__init__(self, outcomes=['cont'])
+
     def execute(self, userdata):
-        (tr, rt) = tf_world_box()
-        pose_goal = geometry_msgs.msg.Pose()
-        pose_goal.orientation.w = 1.0
-        pose_goal.position.x = tr[0]+0.1
-        pose_goal.position.y = tr[1]
-        pose_goal.position.z = 0.3
-        group.set_pose_target(pose_goal)
-        plan = group.go(wait=True)
-        group.stop()
-        group.clear_pose_targets()
+        x = aprox()
+        rospy.sleep(5)
+        return x
 
-        joint_goal = group.get_current_joint_values()
-        joint_goal[4] = joint_goal[4] + 90 * pi / 180
-        [roll, pitch, yaw] = euler_from_quaternion(rt[0], rt[1], rt[2], rt[3])
-        print(roll)
-        # joint_goal[5] = roll 
+class Check_aprox(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['cont', 'rep'])
 
-        group.go(joint_goal, wait=True)
-        group.stop()
+    def execute(self, userdata):
+        x = check_aprox()
+        rospy.sleep(1)
+        return x
 
-        return 'outcome2'
 
 def main():
     rospy.init_node("statemachine", anonymous=True)
@@ -138,23 +120,19 @@ def main():
                                transitions={'cont':'INIT_POSE'})
         smach.StateMachine.add('INIT_POSE', 
                                Init_pose(), 
-                               transitions={'rep':'SEARCH1',
-                               'cont':'POSITION'})
+                               transitions={'outcome2':'SEARCH1'})
         smach.StateMachine.add('SEARCH1', 
                                Search1(), 
-                               transitions={'rep':'SOBE1',
-                               'cont':'POSITION'})
-        smach.StateMachine.add('SOBE1', 
-                               Sobe1(), 
                                transitions={'rep':'SEARCH2',
-                               'cont':'POSITION'})
+                               'cont':'APROX'})
         smach.StateMachine.add('SEARCH2', 
                                Search2(), 
                                transitions={'rep':'SEARCH1',
-                               'cont':'POSITION'})
-        smach.StateMachine.add('POSITION', 
-                               Position() 
-                               )
+                               'cont':'APROX'})
+        smach.StateMachine.add('APROX', 
+                               Aprox(),
+                               transitions={'cont':'APROX'
+                               })
 
 
     # Execute SMACH plan

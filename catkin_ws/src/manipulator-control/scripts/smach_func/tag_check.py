@@ -29,11 +29,16 @@ def tag_check():
 
     while not rospy.is_shutdown():
         try:
-            (trans,rot) = listener.lookupTransform('/camera_fake', '/id_4', rospy.Time(0))
+            # listener.waitForTransform('/world', '/id_4', rospy.Time(), rospy.Duration(5.0))
+            rospy.sleep(1)
+            (trans,rot) = listener.lookupTransform('/world', '/id_4', rospy.Time(0))
+            print(trans)
             return 'cont'
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+            print('a')
             return 'rep'
 
 
 if __name__ == '__main__':
+    rospy.init_node('turtle_tf_listener')
     tag_check()
