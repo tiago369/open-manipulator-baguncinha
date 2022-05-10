@@ -38,6 +38,8 @@
   <!-- end_link -->
   <RefLink ref="end_link"/>
 
+  <RefLink ref="end_link_gripper"/>
+
   <!-- ros_control plugin -->
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
