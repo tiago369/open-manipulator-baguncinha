@@ -6,6 +6,6 @@ moveit_setup_assistant_config:
   SRDF:
     relative_path: config/open_manipulator_p.srdf
   CONFIG:
-    author_name: Ryan Shim
-    author_email: jhshim@robotis.com
-    generated_timestamp: 1586495681
+    author_name: tiago369
+    author_email: tiagobarreto581@gmail.com
+    generated_timestamp: 1652143793
