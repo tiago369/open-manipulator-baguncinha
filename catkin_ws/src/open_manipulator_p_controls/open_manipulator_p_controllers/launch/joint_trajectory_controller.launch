@@ -36,8 +36,8 @@
 
   <!-- startup move_group related -->
   <group unless="$(arg with_gripper)">
-    <include file="$(find open_manipulator_p_moveit_config)/launch/move_group.launch"/>
-    <include file="$(find open_manipulator_p_moveit_config)/launch/moveit_rviz.launch"/>
+    <include file="$(find open_manipulator_p_moveit)/launch/move_group.launch"/>
+    <include file="$(find open_manipulator_p_moveit)/launch/moveit_rviz.launch"/>
   </group>
   <group if="$(arg with_gripper)">
     <include file="$(find open_manipulator_p_with_gripper_moveit_config)/launch/move_group.launch"/>
