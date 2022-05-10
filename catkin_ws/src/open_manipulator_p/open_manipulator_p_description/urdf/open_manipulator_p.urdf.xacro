@@ -219,30 +219,27 @@
 
   <!-- end link -->
   <link name="end_link">
-    <visual>
-      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://open_manipulator_p_description/meshes/end_link.stl" scale="0.001 0.001 0.001"/>
-      </geometry>
-      <material name="grey"/>
-    </visual>
-
     <collision>
-      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+      <origin rpy="0 0 3.1415" xyz="0.073 0.014 -0.024"/>
       <geometry>
-        <mesh filename="package://open_manipulator_p_description/meshes/end_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://open_manipulator_p_description/meshes/bir_gripperMX_fixed.dae"/>
       </geometry>
     </collision>
-
+    <visual>
+      <origin rpy="0 0 3.1415" xyz="0.073 0.014 -0.024"/>
+      <geometry>
+        <mesh filename="package://open_manipulator_p_description/meshes/bir_gripperMX_fixed.dae"/>
+      </geometry>
+    </visual>
     <inertial>
-      <origin xyz="0.00337 0.00000 0.00000" rpy="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0.00337 0.00000 0.00000"/>
       <mass value="0.01919"/>
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
       <!--<inertia ixx="0.00000938" ixy="0.0" ixz="0.0" iyy="0.00000338" iyz="0.0" izz="0.00000635" />-->
     </inertial>
   </link>
 
-  <!-- Alterations of the urdf caso eu faça merda -->
+ 
   <!-- <xacro:property name="camera_link" value="0.05" /> Size of square 'camera' box -->
 
   <joint name="camera_joint" type="fixed">
@@ -273,6 +270,7 @@
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
     </inertial>
   </link>
+
   <!-- Fake camera link to reoriented the camera link -->
   <link name="camera_fake"/>
 
@@ -284,6 +282,39 @@
   </joint>
   <!-- 1.570796 -->
   <!-- AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
+
+  <!-- Joint 7 Gripper -->
+<joint name="gripper" type="revolute">
+  <parent link="end_link"/>
+  <child link="end_link_gripper"/>
+  <origin rpy="0 2.05 0" xyz="0.0315 -0.017 0.019"/>
+  <axis xyz="0 -1 0"/>
+  <!-- Limits to permit your crazy joint state  (rpy old for y -0.1396/-2.3)-->
+  <limit velocity="0.20943" effort="1000" lower="${0}" upper="${2.05}"/>
+  <dynamics damping="0.7"/>
+</joint>
+
+<!-- end link gripper -->
+<link name="end_link_gripper">
+  <collision>
+    <origin rpy="0 0 3.1415" xyz="0 0 0"/>
+    <geometry>
+      <mesh filename="package://open_manipulator_p_description/meshes/bir_gripperMX_claw.dae"/>
+    </geometry>
+  </collision>
+  <visual>
+    <origin rpy="0 0 3.1415" xyz="0 0 0"/>
+    <geometry>
+      <mesh filename="package://open_manipulator_p_description/meshes/bir_gripperMX_claw.dae"/>
+    </geometry>
+    <material name="grey"/>
+  </visual>
+  <inertial>
+    <origin rpy="0 0 3.1415" xyz="0 0 0"/>
+    <mass value="0.013"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+  </inertial>
+</link>
 
   
 

@@ -45,4 +45,7 @@
   <!-- Transmission 6 -->
   <xacro:SimpleTransmissionPosition n="6" joint="joint6" />
 
+  <!-- Transmission 7 -->
+  <xacro:SimpleTransmissionPosition n="7" joint="gripper" />
+
 </robot>
