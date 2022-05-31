@@ -69,7 +69,7 @@
     <child link="link3"/>
 <origin xyz="0.0 0.069 0.033" rpy="0 ${-pi} 0"/>
     <axis xyz="0 1 0"/>
-    <limit velocity="6.5" effort="1000" lower="${-pi-pi*0.5}" upper="${-pi*0.5}" />
+    <limit velocity="6.5" effort="1000" lower="${-pi*1.5}" upper="${-pi*0.5}" />
     <dynamics damping="0.7"/>
   </joint>
 
@@ -177,7 +177,7 @@
     <child link="link6"/>
     <origin xyz="0.06300 0.04500 0.00000" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit velocity="6.5" effort="1000" lower="${-pi*0.5}" upper="${pi*0.5}" />
+    <limit velocity="6.5" effort="1000" lower="${-pi*70/180}" upper="${pi*70/180}" />
     <dynamics damping="0.7"/>
   </joint>
 
@@ -213,7 +213,7 @@
     <child link="end_link"/>
     <origin xyz="0.12300 -0.04500 0.00000" rpy="0 0 0"/>
     <axis xyz="1 0 0"/>
-    <limit velocity="6.5" effort="1000" lower="${-pi}" upper="${pi*0.5}" />
+    <limit velocity="6.5" effort="1000" lower="${-pi*170/180}" upper="${0}" />
     <dynamics damping="0.7"/>
   </joint>
 

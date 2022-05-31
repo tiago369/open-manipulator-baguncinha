@@ -24,31 +24,34 @@ import numpy as np
 import tf
 from smach_func.tf_world_box import tf_world_box
 
-def pose2pick():
+def place_pose():
     robot = moveit_commander.RobotCommander()
     group_name = "arm"
     group = moveit_commander.MoveGroupCommander(group_name)
-    
     while not rospy.is_shutdown():
         print('aaaaa')
         current_pose = group.get_current_pose().pose
         pose_goal = geometry_msgs.msg.Pose()
+        joint_goal = group.get_current_joint_values()
+
         pose_goal.orientation.x = current_pose.orientation.x
         pose_goal.orientation.y = current_pose.orientation.y
         pose_goal.orientation.z = current_pose.orientation.z
         pose_goal.orientation.w = current_pose.orientation.w
         pose_goal.position.x = current_pose.position.x
         pose_goal.position.y = current_pose.position.y
-        pose_goal.position.z = 0.1
+        pose_goal.position.z = 0.3
+
         group.set_pose_target(pose_goal)
         plan = group.go(wait=True)
         group.stop()
         group.clear_pose_targets()
-        rospy.sleep(1)
 
-        print('.deu')
+        joint_goal[0] = -1.57 # Gira o braço
+        group.go(joint_goal, wait=True)
+        group.stop()
+
         return 'cont'
 
-
 if __name__ == '__main__':
-    pose2pick()
+    place_pose()
